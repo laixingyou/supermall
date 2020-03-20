@@ -3,7 +3,7 @@
     <div v-for="item in recommends" class="reitem">
       <a :href="item.link">
         <img :src="item.image" alt />
-        <div>{{item.title}}</div>
+        <div>{{ item.title }}</div>
       </a>
     </div>
   </div>
@@ -30,7 +30,7 @@ export default {
   text-align: center;
   font-style: 12px;
   padding: 10px 0 20px;
-  border-bottom: 110px solid #eee;
+  border-bottom: 10px solid #eee;
 }
 .reitem {
   flex: 1;
