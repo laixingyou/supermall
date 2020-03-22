@@ -31,17 +31,24 @@ export default {
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad
     });
-    this.scroll.on("scroll", position => {
-      // console.log(position);
-      this.$emit("scroll", position);
-    });
-    this.scroll.on("pullingUp", () => {
-      this.$emit("pullingUp");
-    });
+    if (this.probeType === 2 || this.probeType === 3) {
+      this.scroll.on("scroll", position => {
+        // console.log(position);
+        this.$emit("scroll", position);
+      });
+    }
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+      });
+    }
   },
   methods: {
     finishPullUp() {
-      this.scroll.finishPullUp();
+      this.scroll && this.scroll.finishPullUp();
+    },
+    refresh() {
+      this.scroll && this.scroll.refresh();
     }
   }
 };
