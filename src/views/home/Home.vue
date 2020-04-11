@@ -21,11 +21,7 @@
       <home-swipers :banners="banners" @loadOk="loadOk" />
       <recommend-view :recommends="recommends" />
       <feature-view />
-      <tab-control
-        :titles="['流行', '新款', '精选']"
-        @tabClick="tabClick"
-        ref="tabControl2"
-      ></tab-control>
+      <tab-control :titles="['流行', '新款', '精选']" @tabClick="tabClick" ref="tabControl2"></tab-control>
       <good-list :goods="showtime" />
     </scroll>
     <back-top @click.native="backclick" v-show="isshow"></back-top>
@@ -45,6 +41,7 @@ import BackTop from "components/content/backTop/BackTop";
 
 import { getHomedata, getHomeGoods } from "network/home";
 import { debounce } from "common/utils";
+import { itemListenerMixin } from "common/mixin";
 
 export default {
   name: "Home",
@@ -58,6 +55,8 @@ export default {
     Scroll,
     BackTop
   },
+  mixins: [itemListenerMixin],
+
   data() {
     return {
       banners: [],
@@ -87,6 +86,7 @@ export default {
   deactivated() {
     this.saveY = this.$refs.scroll.scroll.y;
     // console.log(this.saveY);
+    this.$bus.$off("itemImgLoad", this.itemImgListener);
   },
   created() {
     this.getHomedata();
@@ -95,12 +95,7 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$bus.$on("imageLoad", () => {
-      refresh();
-    });
-  },
+  mounted() {},
   methods: {
     tabClick(index) {
       // console.log(index);
