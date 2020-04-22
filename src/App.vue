@@ -9,9 +9,11 @@
 
 <script>
 import MainTabBar from "components/content/mainTabbar/MainTabBar";
+import Icon from "components/content/Icon/Icon.vue";
+import SvgIcon from "components/content/Icon/svg.vue";
 export default {
   name: "app",
-  components: { MainTabBar }
+  components: { MainTabBar, Icon, SvgIcon }
 };
 </script>
 
